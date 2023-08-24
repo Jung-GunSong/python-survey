@@ -8,6 +8,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
+question_number = 0
 responses = []
 
 @app.get("/")
@@ -16,10 +17,14 @@ def homepage():
     return render_template("survey_start.html", survey_title=survey.title, survey_instructions=survey.instructions)
 
 
-@app.post("/answer_question>")
-def answer_question(question_number):
+@app.post("/answer_question")
+def answer_question():
 
-    return redirect("/question/<int:question_number>")
+    if question_number < len(survey.questions)-1:
+        return redirect(f"/question/{question_number}")
+
+
+    return redirect("completion.html")
 
 
 @app.get("/question/<int:question_number>")

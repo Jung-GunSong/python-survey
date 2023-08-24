@@ -13,4 +13,16 @@ responses = []
 @app.get("/")
 def homepage():
 
-    return render_template("question.html")
+    return render_template("survey_start.html", survey_title=survey.title, survey_instructions=survey.instructions)
+
+
+@app.post("/answer_question>")
+def answer_question(question_number):
+
+    return redirect("/question/<int:question_number>")
+
+
+@app.get("/question/<int:question_number>")
+def get_first_question(question_number):
+
+    return render_template("question.html", question=survey.questions[question_number])

@@ -3,7 +3,7 @@
 
   <h1>{{ question.prompt }}</h1>
 
-  <form action="/answer" method="POST">
+  <form name="answer" action="/answer_question" method="POST">
 
       <!-- you should have one item like this for every choice -->
       <p>
@@ -14,7 +14,7 @@
         choice-goes-here
       </p>
 
-    <button>Continue</button>
+    <button name="next_question">Continue</button>
   </form>
 
 {% endblock %}

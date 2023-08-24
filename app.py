@@ -26,11 +26,13 @@ def answer_question():
     cur_question_number = session["question_number"]
 
     cur_answer = request.form.get("answer")
-
+    cur_responses = session["responses"]
+    # print("sessions responses are", session["responses"])
     if cur_answer:
-        session["responses"].append(cur_answer)
-    print("Cur Answer", cur_answer)
-
+        cur_responses.append(cur_answer)
+    # print("Cur Answer", cur_answer, type (cur_answer))
+    # print("sessions responses after append", session["responses"])
+    session["responses"] = cur_responses
     if cur_question_number < len(survey.questions):
         session["question_number"] += 1
         return redirect(f"/question/{cur_question_number}")
@@ -40,11 +42,11 @@ def answer_question():
 
 @app.get("/question/<int:question_number>")
 def get_first_question(question_number):
-
+    # print("sessions responses after redirect", session["responses"])
     return render_template("question.html", question=survey.questions[question_number])
 
 
 @app.get("/completion")
 def get_completion_message():
-
-    return render_template("completion.html", responses=session["responses"])
+    # print("sessions responses before completion", session["responses"])
+    return render_template("completion.html", responses = session["responses"])

@@ -6,12 +6,18 @@
   <form name="answer" action="/answer_question" method="POST">
 
       <!-- you should have one item like this for every choice -->
+
+      {% for choice in question.choices %}
+
       <p>
         <input
-            type="text"
+            type="radio"
             name="answer"
-            value="value-goes-here">
+            value="{{ choice }}">
+            {{ choice }}
       </p>
+
+      {% endfor %}
 
     <button name="next_question">Continue</button>
   </form>
